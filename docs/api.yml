@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Library API
   version: 1.0.0
-  description: STD22001
+  description: STD22098
 servers:
   - url: https://library.com
 paths:
@@ -48,6 +48,25 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
   /authors:
+    get:
+      summary: get book's author
+      operationId: getAuthor
+      parameters:
+        - in: query
+          name: authorBook
+          description: Filter author by name
+          required: false
+          schema: 
+            type: string
+      responses:
+        "200":
+          description: List of author
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/author'
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
 components:
   schemas:
@@ -60,6 +79,7 @@ components:
           type: string
         author:
           #TODO1: set it as a component with properties : id, name, sex (M or F)
+          $ref: "#/components/schemas/author"
           type: string
         pageNumbers:
           type: integer
@@ -72,3 +92,15 @@ components:
         releaseDate:
           type: string
           format: date
+    author:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sex: 
+          type: string
+          enum:
+            - M
+            - F
