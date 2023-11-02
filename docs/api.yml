@@ -67,6 +67,25 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/author'
+    put:
+      summary: Create or update a list of author
+      operationId: crupdateAuthor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/author'
+      responses:
+        200:
+          description: The list of created or updated author
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/author'
   #TODO2: complete GET (can be filtered by name) - PUT - DELETE
 components:
   schemas:
