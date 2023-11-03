@@ -18,6 +18,12 @@ paths:
           required: false
           schema:
             type: string
+        - in: query
+          name: byIntervals
+          required: false
+          schema:
+            type: string
+          description: Filter books by intervals of dates of the releaseDate (YYYY-MM-DD,YYYY-MM-DD)
         #TODO3: add parameter to filter books by intervals of dates of the releaseDate
       responses:
         200:
