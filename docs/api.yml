@@ -4,10 +4,10 @@ info:
   version: 1.1.0
   description: STD22098
 servers:
-  - url: https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Tombosoa/library-management/TD1/docs/api.yml
+  - url: https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Tombosoa/library-management/oas-td2-std22098/docs/api.yml
 tags:
-  - Books
-  - Author
+  - name: Books
+  - name: Author
 paths:
   /books:
     get:
@@ -97,6 +97,15 @@ paths:
           required: true
           schema:
             type: string
+      responses:
+        '200':
+          description: data has been updated
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/UpdateBookAuthor'
   /books/authors:
     put:
       tags:
@@ -108,7 +117,16 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/updateBooks'
+                $ref: '#/components/schemas/UpdateBookAuthor'
+      responses:
+        '200':
+          description: author has been updated
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/UpdateBookAuthor'
   /authors:
     get:
       tags:
@@ -212,6 +230,8 @@ components:
       properties:
         author:
           $ref: "#/components/schemas/Author"
+        allOf:
+          $ref: '#/components/schemas/crupdateBook'
     Author:
       type: object
       properties:
@@ -244,16 +264,6 @@ components:
         releaseDate: 
           type: string
           format: date
-    updateBooks:
-      type: object
-      properties:
-        authorId: 
-          type: string
-        bookId:
-          type: integer
-      required:
-        - authorId
-        - bookId
     UpdateBookAuthor:
       type: object
       properties:
@@ -261,3 +271,6 @@ components:
           type: integer
         authorId:
           type: string
+      required:
+        - bookId
+        - authorId
