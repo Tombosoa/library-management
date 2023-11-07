@@ -1,13 +1,18 @@
-openapi: 3.1.0
+openapi: 3.0.3
 info:
   title: Library API
-  version: 1.0.0
+  version: 1.1.0
   description: STD22098
 servers:
   - url: https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Tombosoa/library-management/TD1/docs/api.yml
+tags:
+  - Books
+  - Author
 paths:
   /books:
     get:
+      tags:
+        - Books
       summary: Get all books
       description: The returned books are ordered by updated datetime.
       operationId: getBooks
@@ -19,14 +24,33 @@ paths:
           schema:
             type: string
         - in: query
-          name: byIntervals
+          name: releaseDateMin
           required: false
           schema:
             type: string
-          description: Filter books by intervals of dates of the releaseDate (YYYY-MM-DD,YYYY-MM-DD)
-        #TODO3: add parameter to filter books by intervals of dates of the releaseDate
+          description: if 'releaseDateMax' is not given, 'releaseDateMin' is ignored
+        - in: query
+          name: releaseDateMax
+          required: false
+          schema:
+            type: string 
+          description:  if 'releaseDateMin' is not given, 'releaseDateMax' is ignored
+        - in: query
+          name: page
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: pageSize
+          description: Number of books per page for pagination
+          required: false
+          schema:
+            type: integer
+            default: 50
       responses:
-        200:
+        '200':
           description: The list of filtered books
           content:
             application/json:
@@ -34,7 +58,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+      
     put:
+      tags: 
+        - Books
       summary: Create or update a list of books
       operationId: crupdateBooks
       requestBody:
@@ -43,9 +70,9 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Book'
+                $ref: '#/components/schemas/crupdateBook'
       responses:
-        200:
+        '200':
           description: The list of created or updated books
           content:
             application/json:
@@ -53,8 +80,39 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+
+  /books/{bookId}/authors/{authorId}:
+    put: 
+      tags:
+        - Author
+      summary: update by book's id and author's id
+      parameters:
+        - in: query
+          name: bookId
+          required: true
+          schema:
+            type: integer
+        - in: query
+          name: authorId
+          required: true
+          schema:
+            type: string
+  /books/authors:
+    put:
+      tags:
+        - Author
+      summary: associate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/updateBooks'
   /authors:
     get:
+      tags:
+        - Author
       summary: get book's author
       operationId: getAuthor
       parameters:
@@ -65,15 +123,18 @@ paths:
           schema: 
             type: string
       responses:
-        "200":
+        '200':
           description: List of author
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/author'
+                  $ref: '#/components/schemas/Author'
+  
     put:
+      tags:
+        - Author
       summary: Create or update a list of author
       operationId: crupdateAuthor
       requestBody:
@@ -82,42 +143,76 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/author'
+                $ref: '#/components/schemas/Author'
       responses:
-        200:
+        '200':
           description: The list of created or updated author
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/author'
+                  $ref: '#/components/schemas/Author'
     delete:
+      tags:
+        - Author
+      summary: Delete all authors
+      operationId: deleteAllAuthors
+      responses:
+        '200':
+          description: All authors are deleted
+  /authors/{aId}:
+    delete:
+      tags:
+        - Author
       summary: delete an author
       operationId: deleteAuthor
       parameters:
         - in: query
-          name: authorBook
+          name: aId
           description: delete author by id
           required: true
           schema: 
             type: string
       responses:
-        "200":
+        '200':
           description: author is deleted
-  #TODO2: complete GET (can be filtered by name) - PUT - DELETE
+  /authors/page/{page}/size/{size}:
+    get:
+      tags:
+        - Author
+      summary: get author per page
+      operationId: getAuthorPerPage
+      parameters:
+        - in: query
+          name: size
+          required: false
+          description: if "size" is not given, it will be 1 by default
+          schema: 
+            type: integer
+        - in: query
+          name: page
+          required: false
+          description: if "page" is not given, it will be 1 by default
+          schema: 
+            type: integer
+      responses:
+        '200':
+          description: list of authors
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
 components:
   schemas:
     Book:
       type: object
       properties:
         author:
-          #TODO1: set it as a component with properties : id, name, sex (M or F)
-          $ref: "#/components/schemas/author"
-          type: string
-      allOf:
-        - $ref: "#/components/schemas/crupdateBook"
-    author:
+          $ref: "#/components/schemas/Author"
+    Author:
       type: object
       properties:
         id:
@@ -149,3 +244,20 @@ components:
         releaseDate: 
           type: string
           format: date
+    updateBooks:
+      type: object
+      properties:
+        authorId: 
+          type: string
+        bookId:
+          type: integer
+      required:
+        - authorId
+        - bookId
+    UpdateBookAuthor:
+      type: object
+      properties:
+        bookId:
+          type: integer
+        authorId:
+          type: string
