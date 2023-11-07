@@ -131,6 +131,23 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
+  /authors/page/{page}/size/{size}:
+    get:
+      tags:
+        - Author
+      summary: get author per page
+      operationId: getAuthorPerPage
+      parameters:
+        - in: query
+          name: size
+          required: false
+          schema: 
+            type: integer
+        - in: query
+          name: page
+          required: false
+          schema: 
+            type: integer
     put:
       tags:
         - Author
