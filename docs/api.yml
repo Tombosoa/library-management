@@ -131,23 +131,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
-  /authors/page/{page}/size/{size}:
-    get:
-      tags:
-        - Author
-      summary: get author per page
-      operationId: getAuthorPerPage
-      parameters:
-        - in: query
-          name: size
-          required: false
-          schema: 
-            type: integer
-        - in: query
-          name: page
-          required: false
-          schema: 
-            type: integer
+  
     put:
       tags:
         - Author
@@ -193,6 +177,34 @@ paths:
       responses:
         '200':
           description: author is deleted
+  /authors/page/{page}/size/{size}:
+    get:
+      tags:
+        - Author
+      summary: get author per page
+      operationId: getAuthorPerPage
+      parameters:
+        - in: query
+          name: size
+          required: false
+          description: if "size" is not given, it will be 1 by default
+          schema: 
+            type: integer
+        - in: query
+          name: page
+          required: false
+          description: if "page" is not given, it will be 1 by default
+          schema: 
+            type: integer
+      responses:
+        '200':
+          description: list of authors
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Author'
 components:
   schemas:
     Book:
