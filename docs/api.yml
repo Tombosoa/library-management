@@ -35,6 +35,20 @@ paths:
           schema:
             type: string 
           description:  if 'releaseDateMin' is not given, 'releaseDateMax' is ignored
+        - in: query
+          name: page
+          description: Page number for pagination
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: pageSize
+          description: Number of books per page for pagination
+          required: false
+          schema:
+            type: integer
+            default: 50
       responses:
         '200':
           description: The list of filtered books
