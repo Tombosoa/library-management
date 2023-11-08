@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Library API
-  version: 1.1.0
+  version: 1.2.0
   description: STD22098
 servers:
   - url: https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Tombosoa/library-management/oas-td2-std22098/docs/api.yml
@@ -36,19 +36,8 @@ paths:
             type: string 
           description:  if 'releaseDateMin' is not given, 'releaseDateMax' is ignored
         - in: query
-          name: page
-          description: Page number for pagination
-          required: false
-          schema:
-            type: integer
-            default: 1
-        - in: query
-          name: pageSize
-          description: Number of books per page for pagination
-          required: false
-          schema:
-            type: integer
-            default: 50
+          name: queryPagination
+          $ref: '#/components/parameters/queryPagination'
       responses:
         '200':
           description: The list of filtered books
@@ -71,6 +60,28 @@ paths:
               type: array
               items:
                 $ref: '#/components/schemas/crupdateBook'
+      responses:
+        '200':
+          description: The list of created or updated books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+  /books/import:
+    post:
+      tags:
+        - Books
+      summary: create an import book
+      operationId: bookImport
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/importBook'
       responses:
         '200':
           description: The list of created or updated books
@@ -202,18 +213,18 @@ paths:
       summary: get author per page
       operationId: getAuthorPerPage
       parameters:
-        - in: query
+        - in: path
           name: size
-          required: false
-          description: if "size" is not given, it will be 1 by default
-          schema: 
-            type: integer
-        - in: query
+          required: true
+          description: get an author by page and size
+          schema:
+            $ref: '#/components/parameters/pathPagination/schema/properties/size' 
+        - in: path
           name: page
-          required: false
-          description: if "page" is not given, it will be 1 by default
-          schema: 
-            type: integer
+          required: true
+          description: get an author by page and size
+          schema:
+            $ref: '#/components/parameters/pathPagination/schema/properties/page' 
       responses:
         '200':
           description: list of authors
@@ -274,3 +285,99 @@ components:
       required:
         - bookId
         - authorId
+    Exception:
+      type: object
+      properties:
+        status:
+          type: object
+          properties:
+            status_code:
+              type: string
+            message:
+              type: string
+        body: 
+          type: object
+          example:
+            content:
+              application/json:
+
+    ResponseSuccessfully:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+    
+    BadRequest:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+    
+    Forbidden:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+
+    ServerError:
+      allOf:
+        - $ref: '#/components/schemas/Exception'
+
+    importAuthor:
+      type: object
+      properties:
+        authorName:
+          type: string
+        sex:
+          $ref: '#/components/schemas/Sex'
+    importBook:
+      type: object
+      properties:
+        allOf:
+          $ref: '#/components/schemas/crupdateBook'
+
+    responses:
+        type: object
+        properties:
+          200:
+            type: object
+            allOf:
+              - $ref: '#/components/schemas/ResponseSuccessfully'
+          400:
+            type: object
+            allOf:
+              - $ref: '#/components/schemas/BadRequest'
+          403:
+            type: object
+            allOf:
+              - $ref: '#/components/schemas/Forbidden'
+          500:
+            type: object
+            allOf:
+              - $ref: '#/components/schemas/ServerError'
+
+    
+  parameters:
+    queryPagination:
+      name: queryPagination
+      in: query
+      description: for query pagination
+      required: false
+      schema:
+        type: object
+        properties:
+          page:
+            type: integer
+            default: 1
+          size:
+            type: integer
+            default: 50
+    pathPagination:
+      in: path
+      name: pathPagination
+      description: on the path parameter
+      required: true
+      schema: 
+        type: object
+        properties:
+          page:
+            type: integer
+            default: 1
+          size:
+            type: integer
+            default: 50
+    
