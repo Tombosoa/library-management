@@ -90,7 +90,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/responses/properties/200"
+                  $ref: "#/components/schemas/Book"
         '400':
           description: error
           content:
@@ -137,7 +137,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/responses/properties/200"
+                  $ref: "#/components/schemas/Author"
         '400':
           description: error
           content:
