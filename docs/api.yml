@@ -192,10 +192,17 @@ paths:
       operationId: getAuthorPerPage
       parameters:
         - in: path
-          name: pathPagination
+          name: size
           required: true
           description: get an author by page and size
-          $ref: '#/components/parameters/pathPagination' 
+          schema:
+            $ref: '#/components/parameters/pathPagination/schema/properties/size' 
+        - in: path
+          name: page
+          required: true
+          description: get an author by page and size
+          schema:
+            $ref: '#/components/parameters/pathPagination/schema/properties/page' 
       responses:
         '200':
           description: list of authors
