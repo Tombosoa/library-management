@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Library API
-  version: 1.1.0
+  version: 1.2.0
   description: STD22098
 servers:
   - url: https://petstore.swagger.io/?url=https://raw.githubusercontent.com/Tombosoa/library-management/oas-td2-std22098/docs/api.yml
