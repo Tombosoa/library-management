@@ -69,6 +69,28 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Book'
+  /books/import:
+    post:
+      tags:
+        - Books
+      summary: create an import book
+      operationId: bookImport
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/importBook'
+      responses:
+        '200':
+          description: The list of created or updated books
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
 
   /books/{bookId}/authors/{authorId}:
     put: 
@@ -294,6 +316,19 @@ components:
     ServerError:
       allOf:
         - $ref: '#/components/schemas/Exception'
+
+    importAuthor:
+      type: object
+      properties:
+        authorName:
+          type: string
+        sex:
+          $ref: '#/components/schemas/Sex'
+    importBook:
+      type: object
+      properties:
+        allOf:
+          $ref: '#/components/schemas/crupdateBook'
 
     responses:
         type: object
