@@ -84,13 +84,85 @@ paths:
                 $ref: '#/components/schemas/importBook'
       responses:
         '200':
-          description: The list of created or updated books
+          description: The list of books imported
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Book'
+                  $ref: "#/components/schemas/responses/properties/200"
+        '400':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/responses/properties/400"
+        '403':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/responses/properties/403"
+        '500':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/responses/properties/500"
+
+  /author/import:
+    post:
+      tags:
+        - Author
+      summary: create an import author
+      operationId: bookImport
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:
+                $ref: '#/components/schemas/importAuthor'
+      responses:
+        '200':
+          description: The list of author imported
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/responses/properties/200"
+        '400':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/responses/properties/400"
+        '403':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/responses/properties/403"
+        '500':
+          description: error
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/responses/properties/500"
+
 
   /books/{bookId}/authors/{authorId}:
     put: 
