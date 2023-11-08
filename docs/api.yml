@@ -36,19 +36,8 @@ paths:
             type: string 
           description:  if 'releaseDateMin' is not given, 'releaseDateMax' is ignored
         - in: query
-          name: page
-          description: Page number for pagination
-          required: false
-          schema:
-            type: integer
-            default: 1
-        - in: query
-          name: pageSize
-          description: Number of books per page for pagination
-          required: false
-          schema:
-            type: integer
-            default: 50
+          name: queryPagination
+          $ref: '#/components/parameters/queryPagination'
       responses:
         '200':
           description: The list of filtered books
@@ -202,18 +191,11 @@ paths:
       summary: get author per page
       operationId: getAuthorPerPage
       parameters:
-        - in: query
-          name: size
-          required: false
-          description: if "size" is not given, it will be 1 by default
-          schema: 
-            type: integer
-        - in: query
-          name: page
-          required: false
-          description: if "page" is not given, it will be 1 by default
-          schema: 
-            type: integer
+        - in: path
+          name: pathPagination
+          required: true
+          description: get an author by page and size
+          $ref: '#/components/parameters/pathPagination' 
       responses:
         '200':
           description: list of authors
@@ -274,3 +256,32 @@ components:
       required:
         - bookId
         - authorId
+  parameters:
+    queryPagination:
+      name: queryPagination
+      in: query
+      description: for query pagination
+      required: false
+      schema:
+        type: object
+        properties:
+          page:
+            type: integer
+            default: 1
+          Pagesize:
+            type: integer
+            default: 50
+    pathPagination:
+      in: path
+      name: pathPagination
+      description: on the path parameter
+      required: true
+      schema: 
+        type: object
+        properties:
+          page:
+            type: integer
+            default: 1
+          Pagesize:
+            type: integer
+            default: 50
