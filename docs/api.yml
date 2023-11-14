@@ -382,19 +382,23 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
-  /visitor/emprunt:
+ 
+  /visitor/{action}: 
     put:
       tags:
         - Visitor
-      summary: make a change on borrowing or on giving back book
-      operationId: borrowBack
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Visitor'
+      summary: make an action
+      operationId: visitorAction
+      parameters:
+        - in: path
+          name: action
+          required: true
+          description: modify or create a visitor action
+          schema: 
+            type: string
+            enum:
+              - borrow 
+              - giveBack 
       security:
         - OAuth2: [admin]
       responses:
@@ -405,35 +409,9 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Author'
-  /visitor/giveBack:
-    put:
-      tags:
-        - Visitor
-      summary: make a change on borrowing or on giving back book
-      operationId: borrowBack
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Visitor'
-      security:
-        - OAuth2: [admin]
-      responses:
-        '200':
-          description: The list of created or updated author
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Author'
-  
+                  $ref: '#/components/schemas/Book'
 
-    
-  /visitor/{idVisitor}/emprunt:
+  /visitor/{idVisitor}/{action}:
     get:
       tags:
         - Visitor
@@ -472,85 +450,20 @@ paths:
           schema:
             type: string
             format: date
+        - in: path
+          name: action
+          required: true
+          description: modify or create a visitor action
+          schema: 
+            type: string
+            enum:
+              - borrow 
+              - giveBack 
       security:
         - OAuth2: [admin]
       responses:
         '200':
           description: list of emprunt of visitor's book
-          content:
-            application/json:
-              schema: 
-                type: array
-                items:
-                  $ref: '#/components/schemas/Book'
-        '400':
-          description: error
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/responses/properties/400"
-        '403':
-          description: error
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/responses/properties/403"
-        '500':
-          description: error
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/responses/properties/500"
-  /visitor/{idVisitor}/giveBack:
-    get:
-      tags:
-        - Visitor
-      summary: get visitor per page
-      operationId: getVisitorPerPage
-      parameters:
-        - in: path
-          name: size
-          required: true
-          description: get an visitor by page and size
-          schema:
-            $ref: '#/components/parameters/pathPagination/schema/properties/size' 
-        - in: path
-          name: page
-          required: true
-          description: get an visitor by page and size
-          schema:
-            $ref: '#/components/parameters/pathPagination/schema/properties/page' 
-        - in: path
-          name: idVisitor
-          required: true
-          description: get an visitor's book
-          schema:
-            $ref: '#/components/schemas/Visitor/properties/id' 
-        - in: query
-          name: firstDate
-          description: first date, if it is not given last date will be null
-          required: false
-          schema:
-            type: string
-            format: date
-        - in: query
-          name: lastDate
-          description: last date, if it is not given first date will be null
-          required: false
-          schema:
-            type: string
-            format: date
-      security:
-        - OAuth2: [admin]
-      responses:
-        '200':
-          description: list of book given back by visitor
           content:
             application/json:
               schema: 
