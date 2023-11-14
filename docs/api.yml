@@ -518,6 +518,10 @@ components:
           enum:
             - available
             - not available
+        visitor: 
+          allOf:
+            - $ref: "#/components/schemas/Visitor"
+          
     Author:
       type: object
       properties:
