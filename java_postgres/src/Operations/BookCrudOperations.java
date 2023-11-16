@@ -33,6 +33,7 @@ public class BookCrudOperations implements CrudOperations<Book>{
             boolean status = result.getBoolean("status");
 
             someBook = new Book(id, bookName, bookNumbers, topic,releaseDate, status);
+            it.add(someBook);
         }
     }catch (SQLException e) {
         throw new RuntimeException(e);

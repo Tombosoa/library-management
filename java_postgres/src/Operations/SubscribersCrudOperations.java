@@ -32,6 +32,7 @@ public class SubscribersCrudOperations implements CrudOperations<Subscribers>{
                 String name = result.getString("name");
                 String sex = result.getString("sex");
                 someSubscribers = new Subscribers(id, name, sex);
+                it.add(someSubscribers);
             }
         }catch (SQLException e) {
             throw new RuntimeException(e);

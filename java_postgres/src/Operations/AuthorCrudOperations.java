@@ -30,6 +30,7 @@ public class AuthorCrudOperations implements CrudOperations<Author>{
                 String name = result.getString("name");
                 String sex = result.getString("sex");
                 someAuthor = new Author(id, name, sex);
+                it.add(someAuthor);
             }
         }catch (SQLException e) {
             throw new RuntimeException(e);

@@ -13,13 +13,11 @@ public abstract class User {
         this.sex = sex;
     }
 
-    public User() {
-    }
+public User(String name, String sex){
+    this.name = name;
+    this.sex = sex;
+}
 
-    public User(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public String getId() {
         return id;
@@ -60,10 +58,9 @@ public abstract class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", sex='" + sex + '\'' +
-                '}';
+        return "\n" +
+                "id='" + id + '\''+ "\n" +
+                "name='" + name + '\'' + "\n" +
+                "sex='" + sex + '\'' + "\n";
     }
 }

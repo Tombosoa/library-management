@@ -66,12 +66,11 @@ public abstract class CrupdateBook {
 
     @Override
     public String toString() {
-        return "CrupdateBook{" +
-                "id=" + id +
-                ", bookName='" + bookName + '\'' +
-                ", pageNumbers=" + pageNumbers +
-                ", topic='" + topic + '\'' +
-                ", releaseDate='" + releaseDate + '\'' +
-                '}';
+        return  "\n"+
+                "id=" + id + "\n" +
+                "bookName='" + bookName + '\'' + "\n" +
+                "pageNumbers=" + pageNumbers + "\n" +
+                "topic='" + topic + '\'' + "\n" +
+                "releaseDate='" + releaseDate + '\'' + "\n";
     }
 }
