@@ -1,18 +1,20 @@
 package Entity;
 
+import java.time.LocalDate;
+
 public abstract class CrupdateBook {
     private int id;
     private String bookName;
     private int pageNumbers;
     private String topic;
-    private String releaseDate;
+    private LocalDate releaseDate;
 
     public CrupdateBook(int id, String bookName, int pageNumbers, String topic, String releaseDate) {
         this.id = id;
         this.bookName = bookName;
         this.pageNumbers = pageNumbers;
         this.topic = topic;
-        this.releaseDate = releaseDate;
+        this.releaseDate = LocalDate.parse(releaseDate);
     }
 
     public int getId() {
@@ -47,12 +49,12 @@ public abstract class CrupdateBook {
         this.topic = topic;
     }
 
-    public String getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
 
     public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
+        this.releaseDate = LocalDate.parse(releaseDate);
     }
 
     @Override
