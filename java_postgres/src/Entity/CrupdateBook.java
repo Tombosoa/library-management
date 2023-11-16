@@ -9,12 +9,19 @@ public abstract class CrupdateBook {
     private String topic;
     private LocalDate releaseDate;
 
-    public CrupdateBook(int id, String bookName, int pageNumbers, String topic, String releaseDate) {
+    public CrupdateBook(int id, String bookName, int pageNumbers, String topic, LocalDate releaseDate) {
         this.id = id;
         this.bookName = bookName;
         this.pageNumbers = pageNumbers;
         this.topic = topic;
-        this.releaseDate = LocalDate.parse(releaseDate);
+        this.releaseDate = releaseDate;
+    }
+
+    public CrupdateBook(String bookName, int pageNumbers, String topic, LocalDate releaseDate) {
+        this.bookName = bookName;
+        this.pageNumbers = pageNumbers;
+        this.topic = topic;
+        this.releaseDate = releaseDate;
     }
 
     public int getId() {

@@ -2,10 +2,7 @@ package Operations;
 
 import Entity.Book;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,16 +42,52 @@ public class BookCrudOperations implements CrudOperations<Book>{
 
     @Override
     public List<Book> saveAll(List<Book> toSave) {
-        return null;
+        List<Book> savedBooks = new ArrayList<>();
+        try {
+            for (Book book : toSave) {
+                String query = "INSERT INTO book (bookName, pageNumbers, releaseDate, topic, status) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = conn.prepareStatement(query);
+                preparedStatement.setString(1, book.getBookName());
+                preparedStatement.setInt(2, book.getPageNumbers());
+                preparedStatement.setDate(3, java.sql.Date.valueOf(book.getReleaseDate()));
+                preparedStatement.setString(4, book.getTopic());
+                preparedStatement.setBoolean(5, book.isStatus());
+                preparedStatement.executeUpdate();
+                savedBooks.add(book);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return savedBooks;
     }
 
     @Override
     public Book save(Book toSave) {
-        return null;
+        try {
+            String query = "INSERT INTO book (bookName, pageNumbers, releaseDate, topic, status) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, toSave.getBookName());
+            preparedStatement.setInt(2, toSave.getPageNumbers());
+            preparedStatement.setDate(3, java.sql.Date.valueOf(toSave.getReleaseDate()));
+            preparedStatement.setString(4, toSave.getTopic());
+            preparedStatement.setBoolean(5, toSave.isStatus());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return toSave;
     }
 
     @Override
     public Book delete(Book toDelete) {
-        return null;
+        try {
+            String query = "DELETE FROM book WHERE id = ?";
+            PreparedStatement preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, toDelete.getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return toDelete;
     }
 }

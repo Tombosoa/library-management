@@ -1,20 +1,20 @@
+import Entity.Book;
+import Operations.BookCrudOperations;
 import Operations.DataBaseConnection;
 
 import java.sql.Connection;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String userName = System.getenv("DB_USERNAME");
-        String password = System.getenv("DB_PASSWORD");
-        String databaseName = System.getenv("DB_NAME");
+        BookCrudOperations bookCrudOperations = new BookCrudOperations();
+        List<Book> booksToSave = new ArrayList<>();
+        booksToSave.add(new Book("Harry Potter", 150, "OTHER", LocalDate.parse("1998-08-12"), false));
+        booksToSave.add(new Book("The Lord of the Rings", 200, "FANTASY", LocalDate.parse("1988-12-12"), true));
 
-        DataBaseConnection dbConnection = new DataBaseConnection(userName, password, databaseName);
-        Connection conn = dbConnection.getConnection();
-
-        try {
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<Book> savedBooks = bookCrudOperations.saveAll(booksToSave);
+        System.out.println("Books saved: " + savedBooks);
     }
 }

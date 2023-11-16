@@ -28,6 +28,12 @@ public class Book extends CrupdateBook{
         this.status = status;
     }
 
+    public Book(String bookName, int pageNumbers, String topic, LocalDate releaseDate, boolean status) {
+        super( bookName, pageNumbers, topic, releaseDate);
+        this.status = status;
+    }
+
+
     public boolean isStatus() {
         return status;
     }
@@ -55,4 +61,6 @@ public class Book extends CrupdateBook{
     public void addBorrowers(Subscribers borrower){
         this.borrowers.add(borrower);
     }
+
+
 }
