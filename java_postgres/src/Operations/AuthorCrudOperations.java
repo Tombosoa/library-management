@@ -21,7 +21,7 @@ public class AuthorCrudOperations implements CrudOperations<Author>{
         List<Author> it = new ArrayList<>();
         Author someAuthor = null;
         try{
-            String query = "SELECT * FROM book";
+            String query = "SELECT * FROM author";
             statement = conn.createStatement();
             ResultSet result = statement.executeQuery(query);
 
