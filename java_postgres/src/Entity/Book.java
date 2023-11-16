@@ -8,14 +8,14 @@ public class Book extends CrupdateBook{
     private boolean status;
     private Author author;
 
-    private List<Visitor> borrowers;
+    private List<Subscribers> borrowers;
 
 
     public Book(int id, String bookName, int pageNumbers, String topic, String releaseDate) {
         super(id, bookName, pageNumbers, topic, releaseDate);
     }
 
-    public Book(int id, String bookName, int pageNumbers, String topic, String releaseDate, boolean status, Author author, List<Visitor> borrowers) {
+    public Book(int id, String bookName, int pageNumbers, String topic, String releaseDate, boolean status, Author author, List<Subscribers> borrowers) {
         super(id, bookName, pageNumbers, topic, releaseDate);
         this.status = status;
         this.author = author;
@@ -38,15 +38,15 @@ public class Book extends CrupdateBook{
         this.author = author;
     }
 
-    public List<Visitor> getBorrowers() {
+    public List<Subscribers> getBorrowers() {
         return borrowers;
     }
 
-    public void setBorrowers(List<Visitor> borrowers) {
+    public void setBorrowers(List<Subscribers> borrowers) {
         this.borrowers = borrowers;
     }
 
-    public void addBorrowers(Visitor borrower){
+    public void addBorrowers(Subscribers borrower){
         this.borrowers.add(borrower);
     }
 }
