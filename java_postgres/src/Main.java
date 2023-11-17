@@ -1,12 +1,8 @@
-import Entity.Author;
 import Entity.Book;
-import Entity.Subscribers;
 import Operations.AuthorCrudOperations;
 import Operations.BookCrudOperations;
-import Operations.DataBaseConnection;
 import Operations.SubscribersCrudOperations;
 
-import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +12,9 @@ public class Main {
         BookCrudOperations bookCrudOperations = new BookCrudOperations();
         AuthorCrudOperations authorCrudOperations = new AuthorCrudOperations();
         SubscribersCrudOperations subscribersCrudOperations = new SubscribersCrudOperations();
-        /*List<Book> booksToSave = new ArrayList<>();
-        booksToSave.add(new Book("Harry Potter", 150, "OTHER", LocalDate.parse("1998-08-12"), false));
-        booksToSave.add(new Book("The Lord of the Rings", 200, "FANTASY", LocalDate.parse("1988-12-12"), true));
+       /* List<Book> booksToSave = new ArrayList<>();
+        booksToSave.add(new Book("Harry Potter", 150, "OTHER", LocalDate.parse("1998-08-12"), "ecf5695d-9b3b-4221-804f-6552fcacad4b",false ));
+        booksToSave.add(new Book("The Lord of the Rings", 200, "FANTASY", LocalDate.parse("1988-12-12"),  "ecf5695d-9b3b-4221-804f-6552fcacad4b",true));
 
         List<Book> savedBooks = bookCrudOperations.saveAll(booksToSave);
         System.out.println("Books saved: " + savedBooks);*/
@@ -35,7 +31,7 @@ public class Main {
         List<Subscribers> savedSubscribers = subscribersCrudOperations.saveAll(subscribersToSave);
         System.out.println("Subscribers saved: " + savedSubscribers);*/
 
-       /* Book bookToSave = new Book("The Hobbit", 200, "COMEDY",LocalDate.parse("1995-11-12"), true);
+        /*Book bookToSave = new Book("The Hobbit", 200, "COMEDY",LocalDate.parse("1995-11-12"), "9be5cfd5-d4ba-4656-a0c2-1419c4093f48",true);
         Book savedBook = bookCrudOperations.save(bookToSave);
         System.out.println("Book saved: " + savedBook);*/
 

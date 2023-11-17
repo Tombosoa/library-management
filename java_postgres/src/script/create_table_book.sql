@@ -1,2 +1,2 @@
-CREATE TABLE IF NOT EXISTS "book" (id SERIAL PRIMARY KEY, bookName varchar(200), pageNumbers int, releaseDate date, topic varchar(500), status boolean);
+CREATE TABLE IF NOT EXISTS "book" (id SERIAL PRIMARY KEY, bookName varchar(200), pageNumbers int, releaseDate date, topic varchar(500), status boolean, id_author uuid references author(id), id_subscribers uuid references subscribers(id));
 insert into "book" (bookname, pagenumbers, releaseDate, topic, status) values ('Harry Potter', 150, '1998-08-12', 'OTHER', false);

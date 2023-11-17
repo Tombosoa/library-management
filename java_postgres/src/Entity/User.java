@@ -18,6 +18,9 @@ public User(String name, String sex){
     this.sex = sex;
 }
 
+    public User(String name) {
+    }
+
 
     public String getId() {
         return id;

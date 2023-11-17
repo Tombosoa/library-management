@@ -9,4 +9,7 @@ public class Author extends User{
         super(name, sex);
     }
 
+    public Author(String authorName) {
+        super(authorName);
+    }
 }

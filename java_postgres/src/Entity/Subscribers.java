@@ -8,4 +8,7 @@ public class Subscribers extends User{
         super(name, sex);
     }
 
+    public Subscribers(String name) {
+        super(name);
+    }
 }
