@@ -40,7 +40,7 @@ public class Main {
         System.out.println("Book deleted: " + deletedBook);*/
 
         System.out.println("there are the list of books: " + "\n" + bookCrudOperations.findAll());
-        //System.out.println("there are the list of authors: " + "\n" + authorCrudOperations.findAll());
-        //System.out.println("there are the list of subscribers: " + "\n" + subscribersCrudOperations.findAll());
+        System.out.println("there are the list of authors: " + "\n" + authorCrudOperations.findAll());
+        System.out.println("there are the list of subscribers: " + "\n" + subscribersCrudOperations.findAll());
     }
 }
